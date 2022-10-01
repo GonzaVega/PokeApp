@@ -14,7 +14,7 @@
 }
 
 .movie h3 {
-  color: #eccf77;
-  margin: 0;
+  /* color: #eccf77; */
+  margin: 5px;
   font-size: 1rem;
 }

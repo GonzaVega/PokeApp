@@ -1,16 +1,16 @@
 import React, { useState, useEffect, useCallback } from "react";
 
 import MoviesList from "./components/MoviesList";
-import AddMovie from "./components/AddMovie";
+
 import "./App.css";
 
 function App() {
-  const [movies, setMovies] = useState([]);
-  const [categories, setCategories] = useState([{}]);
+  const [categories, setCategories] = useState([]);
+
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const fetchMoviesHandler = useCallback(async () => {
+  const fetchCategoriesHandler = useCallback(async () => {
     setIsLoading(true);
     setError(null);
     try {
@@ -21,11 +21,12 @@ function App() {
 
       const data = await response.json();
 
-      const transformedMovies = data.results.map(async (movieData) => {
-        const eachResponse = fetch(movieData.url)
+      const transformedCategories = data.results.map(async (pokemonData) => {
+        const eachResponse = await fetch(pokemonData.url)
           .then((response) => {
             return response.json();
           })
+
           .then((abilitiesObject) => {
             let weaknesess = [];
             let strenghts = [];
@@ -52,26 +53,22 @@ function App() {
               .double_damage_from) {
               weaknesess.push(item.name);
             }
-            const weaknessesSet = [...new Set(weaknesess)];
-            const strenghtsSet = [...new Set(strenghts)];
-            console.log(
-              `${nameCategory} fuerte contra: ${strenghtsSet}---------debil contra: ${weaknessesSet}`
-            );
+            const weaknessesSet = new Intl.ListFormat().format([
+              ...new Set(weaknesess),
+            ]);
+            const strenghtsSet = new Intl.ListFormat().format([
+              ...new Set(strenghts),
+            ]);
+
             return {
               name: nameCategory,
-              betterTo: strenghtsSet,
-              worstTo: weaknessesSet,
+              strongAgainst: strenghtsSet,
+              worstAgainst: weaknessesSet,
             };
           });
 
-        return {
-          name: movieData.name,
-          strongAgainst: eachResponse.betterTo,
-          worstAgainst: eachResponse.worstTo,
-        };
+        setCategories((prevArray) => [...prevArray, eachResponse]);
       });
-
-      setMovies(transformedMovies);
     } catch (error) {
       setError(error.message);
     }
@@ -79,17 +76,13 @@ function App() {
   }, []);
 
   useEffect(() => {
-    fetchMoviesHandler();
-  }, [fetchMoviesHandler]);
-
-  function addMovieHandler(movie) {
-    console.log(movie);
-  }
+    fetchCategoriesHandler();
+  }, [fetchCategoriesHandler]);
 
   let content = <p>Found no movies.</p>;
 
-  if (movies.length > 0) {
-    content = <MoviesList movies={movies} />;
+  if (categories.length > 0) {
+    content = <MoviesList movies={categories} />;
   }
 
   if (error) {
@@ -102,9 +95,8 @@ function App() {
 
   return (
     <React.Fragment>
-      <section>{/* <AddMovie onAddMovie={addMovieHandler} /> */}</section>
       <section>
-        <button onClick={fetchMoviesHandler}>Fetch Pokemon Classes</button>
+        <button onClick={fetchCategoriesHandler}>Fetch Pokemon Classes</button>
       </section>
       <section>{content}</section>
     </React.Fragment>
