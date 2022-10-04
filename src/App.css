@@ -3,16 +3,28 @@ section {
   width: 90%;
   max-width: 40rem;
   text-align: center;
-  background-color: white;
-  padding: 2rem;
+  background-color: #f6cf57;
+  padding: 1rem;
   border-radius: 12px;
+  margin-bottom: 0%;
+  margin-top: 0%;
 }
-
+img {
+  width: 80%;
+}
+div {
+  margin: 1rem auto;
+  max-width: 40rem;
+  text-align: center;
+  background-color: #f6cf57;
+  margin-top: 0%;
+  margin-bottom: 0%;
+}
 button {
   font: inherit;
   cursor: pointer;
-  background: #230052;
-  border: 1px solid #230052;
+  background: #e3350d;
+  border: 1px solid #e3350d;
   color: white;
   padding: 0.75rem 2rem;
   border-radius: 20px;
@@ -24,6 +36,6 @@ button:focus {
 
 button:hover,
 button:active {
-  background-color: #460897;
-  border-color: #460897;
+  background-color: #ee6b2f;
+  border-color: #ee6b2f;
 }

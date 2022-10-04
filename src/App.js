@@ -26,7 +26,6 @@ function App() {
           .then((response) => {
             return response.json();
           })
-
           .then((abilitiesObject) => {
             let weaknesess = [];
             let strenghts = [];
@@ -75,26 +74,30 @@ function App() {
     setIsLoading(false);
   }, []);
 
-  useEffect(() => {
-    fetchCategoriesHandler();
-  }, [fetchCategoriesHandler]);
+  // useEffect(() => {
+  //   fetchCategoriesHandler();
+  // }, [fetchCategoriesHandler]);
 
-  let content = <p>Found no movies.</p>;
+  let content = <h3>Found no Pokémon classes.</h3>;
 
   if (categories.length > 0) {
     content = <MoviesList movies={categories} />;
   }
 
   if (error) {
-    content = <p>{error}</p>;
+    content = <h3>{error}</h3>;
   }
 
   if (isLoading) {
-    content = <p>Loading...</p>;
+    content = <h3>Loading...</h3>;
   }
 
   return (
     <React.Fragment>
+      <div>
+        <img src="https://i.pinimg.com/originals/9e/39/23/9e3923825ba4a4fa967858f980b8460f.png" />
+      </div>
+
       <section>
         <button onClick={fetchCategoriesHandler}>Fetch Pokemon Classes</button>
       </section>
