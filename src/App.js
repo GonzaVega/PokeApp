@@ -3,6 +3,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import MoviesList from "./components/MoviesList";
 
 import "./App.css";
+import PokemonTypeFilter from "./components/PokemonTypeFilter";
 
 function App() {
   const [categories, setCategories] = useState([]);
@@ -74,9 +75,9 @@ function App() {
     setIsLoading(false);
   }, []);
 
-  // useEffect(() => {
-  //   fetchCategoriesHandler();
-  // }, [fetchCategoriesHandler]);
+  useEffect(() => {
+    fetchCategoriesHandler();
+  }, [fetchCategoriesHandler]);
 
   let content = <h3>Found no Pokémon classes.</h3>;
 
@@ -95,11 +96,17 @@ function App() {
   return (
     <React.Fragment>
       <div>
-        <img src="https://i.pinimg.com/originals/9e/39/23/9e3923825ba4a4fa967858f980b8460f.png" />
+        <img
+          src="https://i.pinimg.com/originals/9e/39/23/9e3923825ba4a4fa967858f980b8460f.png"
+          alt="Pokemon logo"
+        />
       </div>
 
       <section>
         <button onClick={fetchCategoriesHandler}>Fetch Pokemon Classes</button>
+      </section>
+      <section>
+        <PokemonTypeFilter pokemonTypes={categories} />
       </section>
       <section>{content}</section>
     </React.Fragment>
