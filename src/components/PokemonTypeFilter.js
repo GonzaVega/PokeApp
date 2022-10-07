@@ -19,7 +19,7 @@ const PokemonTypeFilter = (props) => {
     }
     setFiltered(event.target.value);
   };
-
+  //  ARREGLAR MANEJO DE ERRORES, SACAR NOTAS QUE SE AGREGARON EN DESARROLLO
   // const inputBlurHandler = (event) => {
   //   console.log("onBlur fired");
   //   setIsTouched(true);
