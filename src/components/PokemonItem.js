@@ -1,8 +1,8 @@
 import React from "react";
 
-import classes from "./Movie.module.css";
+import classes from "./PokemonItem.module.css";
 
-const Movie = (props) => {
+const PokemonItem = (props) => {
   function capitalizeFirstLetter(str) {
     return str[0].toUpperCase() + str.slice(1);
   }
@@ -11,7 +11,9 @@ const Movie = (props) => {
       {" "}
       <h2>Pokémon class: {capitalizeFirstLetter(props.name)}</h2>
       <h3 style={{ color: "#AAFF00" }}>Strong against: {props.strongTo}</h3>
-      <h3 style={{ color: "#EE6B2F" }}>Weaker against: {props.worstAgainst}</h3>
+      <h3 style={{ color: "#522719", borderColor: "whitesmoke" }}>
+        Weaker against: {props.worstAgainst}
+      </h3>
     </li>
   );
   if (!props.strongTo && !props.worstAgainst) {
@@ -19,14 +21,14 @@ const Movie = (props) => {
       <li>
         {" "}
         <h2>Pokémon class: {capitalizeFirstLetter(props.name)}</h2>
-        <h4 style={{ color: "white" }}>
+        <h3 style={{ color: "white" }}>
           {" "}
           No data available, Proffesor Oak is still researching!
-        </h4>
+        </h3>
       </li>
     );
   }
-  return <div className={classes.movie}>{content} </div>;
+  return <div className={classes.PokemonItem}>{content} </div>;
 };
 
-export default Movie;
+export default PokemonItem;

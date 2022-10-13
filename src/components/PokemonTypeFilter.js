@@ -1,105 +1,74 @@
-import React, { useState, useEffect } from "react";
-import App from "../App";
-import MoviesList from "../components/MoviesList";
-import classes from "./PokemonTypeFilter.module.css";
+import React, { useState } from "react";
+import PokemonList from "./PokemonList";
+
 const PokemonTypeFilter = (props) => {
   const [filtered, setFiltered] = useState("");
   const [pokemon, setPokemon] = useState([]);
-  const [isValid, setIsValid] = useState(null);
+  const [isValid, setIsValid] = useState(false);
   const [isFiltered, setIsFiltered] = useState(null);
-  const [isValue, setIsValue] = useState(null);
-  // const [isTouched, setIsTouched] = useState(false);
+  const [isTouched, setIsTouched] = useState(false);
 
   const pokemonInputHandler = (event) => {
-    if (event.target.value.trim().length > 0) {
+    setFiltered(event.target.value);
+    if (event.target.value.trim() !== "") {
       setIsValid(true);
     }
-    if (event.target.value.trim().length === 0) {
-      setIsValue(false);
-    }
-    setFiltered(event.target.value);
   };
-  //  ARREGLAR MANEJO DE ERRORES, SACAR NOTAS QUE SE AGREGARON EN DESARROLLO
-  // const inputBlurHandler = (event) => {
-  //   console.log("onBlur fired");
-  //   setIsTouched(true);
-  // };
 
+  const inputBlurHandler = () => {
+    setIsTouched(true);
+    if (filtered.trim() === "") {
+      setIsValid(false);
+    }
+  };
   const typeFilterHandler = (event) => {
     event.preventDefault();
+    setIsTouched(true);
+
+    if (filtered.trim() === "") {
+      setIsValid(false);
+      return;
+    }
 
     const filteredPokemon = props.pokemonTypes.filter(
       (type) => type.name === filtered.toLowerCase().trim("")
     );
 
-    if (filteredPokemon.length > 0) {
-      setIsFiltered(true);
-    }
-    if (!filteredPokemon) {
+    setIsFiltered(true);
+
+    if (filteredPokemon.length === 0) {
       setIsFiltered(false);
     }
-    console.log(filteredPokemon);
+
     return setPokemon(filteredPokemon);
   };
-
+  const inputIsInvalid = !isValid && isTouched;
+  const inputIsNotFiltered = isValid && isTouched && !isFiltered;
   let content = (
     <div>
-      Pokemon filter <p>{`${isValid}, ${isFiltered}`}</p>
+      <h3> Pokémon filter </h3>
       <form onSubmit={typeFilterHandler}>
         <input
           type="text"
           onChange={pokemonInputHandler}
+          onBlur={inputBlurHandler}
           placeholder="Enter a Pokémon type"
         ></input>
-        <button type="submit">Filter Pokémon by type</button>
+        <button type="submit">Filter Pokémon types</button>
       </form>
       {isValid === true && isFiltered && (
         <h3>
           {" "}
-          Your filtered Pokémon type: <MoviesList movies={pokemon} />{" "}
+          Your filtered Pokémon type: <PokemonList pokemons={pokemon} />{" "}
+          <hr></hr>
         </h3>
       )}
-      {isValue === false && !isValid && (
-        <h4> Please enter a Pokémon type to search </h4>
-      )}
-      {isFiltered === false && (
+      {inputIsInvalid && <h4> Please enter a Pokémon type to search </h4>}
+      {inputIsNotFiltered && (
         <h4> The requested Pokémon type couldn't be found, try again! </h4>
       )}
     </div>
   );
-
-  // if (isValid === false || isTouched === true) {
-  //   content = (
-  //     <div>
-  //       Pokemon filter
-  //       <form onSubmit={typeFilterHandler}>
-  //         <input
-  //           type="text"
-  //           onChange={pokemonInputHandler}
-  //           onBlur={inputBlurHandler}
-  //         ></input>
-  //         <button type="submit">Filter Pokémon by type</button>
-  //       </form>
-  //       <h4> Please enter a Pokémon type to search </h4>
-  //     </div>
-  //   );
-  // }
-  // if (isFiltered === false && isTouched === true) {
-  //   content = (
-  //     <div>
-  //       Pokemon filter
-  //       <form onSubmit={typeFilterHandler}>
-  //         <input
-  //           type="text"
-  //           onChange={pokemonInputHandler}
-  //           onBlur={inputBlurHandler}
-  //         ></input>
-  //         <button type="submit">Filter Pokémon by type</button>
-  //       </form>
-  //       <h4> The requested Pokémon type couldn't be found, try again! </h4>
-  //     </div>
-  //   );
-  // }
 
   return <div>{content}</div>;
 };

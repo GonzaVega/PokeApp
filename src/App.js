@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useCallback } from "react";
 
-import MoviesList from "./components/MoviesList";
+import PokemonList from "./components/PokemonList";
+import PokemonTypeFilter from "./components/PokemonTypeFilter";
 
 import "./App.css";
-import PokemonTypeFilter from "./components/PokemonTypeFilter";
 
 function App() {
   const [categories, setCategories] = useState([]);
@@ -82,7 +82,13 @@ function App() {
   let content = <h3>Found no Pokémon classes.</h3>;
 
   if (categories.length > 0) {
-    content = <MoviesList movies={categories} />;
+    content = (
+      <div>
+        {" "}
+        <h3> Pokémon Types </h3>
+        <PokemonList pokemons={categories} />{" "}
+      </div>
+    );
   }
 
   if (error) {

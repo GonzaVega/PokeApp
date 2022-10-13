@@ -1,4 +1,4 @@
-.movie {
+.PokemonItem {
   margin: 1rem;
   padding: 1rem;
   background-color: #0075be;
@@ -8,13 +8,13 @@
   color: white;
 }
 
-.movie h2 {
+.PokemonItem h2 {
   font-size: 2rem;
   color: #ffffff;
 }
 
-.movie h3 {
+.PokemonItem h3 {
   /* color: #eccf77; */
   margin: 5px;
-  font-size: 1rem;
+  font-size: 1.5rem;
 }

@@ -1,6 +1,6 @@
 section {
   margin: 1rem auto;
-  width: 90%;
+  width: 100%;
   max-width: 40rem;
   text-align: center;
   background-color: #f6cf57;
@@ -38,4 +38,24 @@ button:hover,
 button:active {
   background-color: #ee6b2f;
   border-color: #ee6b2f;
+}
+
+input {
+  font: inherit;
+  padding: 0.75rem;
+  border-radius: 8px;
+  border: 1.5px solid #0075be;
+  background-color: #dedede;
+  width: 20rem;
+  max-width: 100%;
+  margin-right: 2%;
+}
+
+input:focus {
+  outline: none;
+  border-color: #89722c;
+  background-color: whitesmoke;
+}
+hr {
+  border-color: #f6cf57;
 }
