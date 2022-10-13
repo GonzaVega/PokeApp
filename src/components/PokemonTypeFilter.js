@@ -63,9 +63,17 @@ const PokemonTypeFilter = (props) => {
           <hr></hr>
         </h3>
       )}
-      {inputIsInvalid && <h4> Please enter a Pokémon type to search </h4>}
+      {inputIsInvalid && (
+        <h4 style={{ color: "red" }}>
+          {" "}
+          Please enter a Pokémon type to search{" "}
+        </h4>
+      )}
       {inputIsNotFiltered && (
-        <h4> The requested Pokémon type couldn't be found, try again! </h4>
+        <h4 style={{ color: "red" }}>
+          {" "}
+          The requested Pokémon type couldn't be found, try again!{" "}
+        </h4>
       )}
     </div>
   );
