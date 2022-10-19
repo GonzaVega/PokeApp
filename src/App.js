@@ -32,31 +32,41 @@ function App() {
             let strenghts = [];
             let nameCategory = abilitiesObject.name;
 
-            for (let item of abilitiesObject.damage_relations.no_damage_from) {
-              strenghts.push(item.name);
-            }
-            for (let item of abilitiesObject.damage_relations
-              .half_damage_from) {
-              strenghts.push(item.name);
-            }
-            for (let item of abilitiesObject.damage_relations
-              .double_damage_to) {
-              strenghts.push(item.name);
-            }
-            for (let item of abilitiesObject.damage_relations.no_damage_to) {
-              weaknesess.push(item.name);
-            }
-            for (let item of abilitiesObject.damage_relations.half_damage_to) {
-              weaknesess.push(item.name);
-            }
-            for (let item of abilitiesObject.damage_relations
-              .double_damage_from) {
-              weaknesess.push(item.name);
-            }
-            const weaknessesSet = new Intl.ListFormat().format([
+            const orgCategories = (origin, destination) => {
+              for (let item of origin) {
+                destination.push(item.name);
+              }
+            };
+
+            orgCategories(
+              abilitiesObject.damage_relations.no_damage_from,
+              strenghts
+            );
+            orgCategories(
+              abilitiesObject.damage_relations.half_damage_from,
+              strenghts
+            );
+            orgCategories(
+              abilitiesObject.damage_relations.double_damage_to,
+              strenghts
+            );
+            orgCategories(
+              abilitiesObject.damage_relations.no_damage_to,
+              weaknesess
+            );
+            orgCategories(
+              abilitiesObject.damage_relations.half_damage_to,
+              weaknesess
+            );
+            orgCategories(
+              abilitiesObject.damage_relations.double_damage_from,
+              weaknesess
+            );
+
+            const weaknessesSet = new Intl.ListFormat("en").format([
               ...new Set(weaknesess),
             ]);
-            const strenghtsSet = new Intl.ListFormat().format([
+            const strenghtsSet = new Intl.ListFormat("en").format([
               ...new Set(strenghts),
             ]);
 
